@@ -7,7 +7,7 @@ export async function search() {
   const page = await browser.newPage();
 
   await page.goto(
-    "https://www.linkedin.com/jobs/search?keywords=Software%20Developer&location=Houston%2C%20Texas%2C%20United%20States&geoId=103743442&trk=public_jobs_jobs-search-bar_search-submit&position=1&pageNum=0"
+    "https://www.linkedin.com/jobs/search/?currentJobId=3553971114&distance=25&geoId=103644278&keywords=software%20developer"
   );
   await wait(5000);
 }
