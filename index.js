@@ -1,4 +1,4 @@
-import { search } from "./tests/search.js";
+import { search } from "./workers/search.js";
 
 search()
   .then(() => {
