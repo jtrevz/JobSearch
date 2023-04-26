@@ -20,6 +20,7 @@
     "@playwright/test": "^1.32.3"
   },
   "dependencies": {
+    "dotenv": "^16.0.3",
     "playwright": "^1.32.3"
   },
   "type": "module"
