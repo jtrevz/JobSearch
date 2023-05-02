@@ -100,5 +100,5 @@ export async function search() {
   let href = await page.locator(XPath.url).first().getAttribute("href");
 
   await wait(2000);
-  console.log(title, company, city, remote, about, matching, nonMatching, href);
+  console.log(matching, nonMatching);
 }
