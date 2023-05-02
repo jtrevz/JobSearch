@@ -1,4 +1,4 @@
-import { Skills, desc } from "./classes.js";
+import { Skills } from "./classes.js";
 
 function skillCount(text) {
   let points = 0;
