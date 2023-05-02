@@ -10,7 +10,7 @@ const XPath = {
   about: "//div[@id='job-details']",
   matching: "//*[@id='how-you-match-card']/section[2]/div/div/div[1]", // click
   nonmatch: "//*[@id='how-you-match-card']/section[2]/div/div/div[2]",
-  skillsList: "//ul[@class='job-details-skill-match-status-list']",
+  url: "//ul[@class='scaffold-layout__list-container']/li/div/div//div/div/a",
 };
 
 export default XPath;
