@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import XPath from "./jobPaths.js";
+import { skillExtract } from "./cleaners.js";
+import fs from "fs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -100,5 +102,9 @@ export async function search() {
   let href = await page.locator(XPath.url).first().getAttribute("href");
 
   await wait(2000);
-  console.log(matching, nonMatching);
+
+  console.log(skillExtract(matching));
+  console.log(skillExtract(nonMatching));
+
+  await wait(5000);
 }
