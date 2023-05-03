@@ -1,16 +1,26 @@
 import { Skills } from "./classes.js";
 
+//name filters
+
+//set true or false
+
 function skillCount(text) {
-  let points = 0;
-  let caseText = text.toLowerCase();
-  for (const point in Skills) {
-    Skills[point].map((skill) => {
-      if (text.toLowerCase().includes(skill.toLowerCase())) {
-        points += parseInt(point);
-      }
-    });
-  }
-  return points;
+  const tLow = text.toLowerCase();
+  let matchArr = [];
+  let nonMatchArr = [];
+
+  Skills.match.map((skill) => {
+    if (tLow.includes(skill.toLowerCase())) {
+      matchArr.push(skill);
+    }
+  });
+  Skills.nonMatch.map((skill) => {
+    if (tLow.includes(skill.toLowerCase())) {
+      nonMatchArr.push(skill);
+    }
+  });
+
+  return { matchArr, nonMatchArr };
 }
 
 function skillExtract(str) {
@@ -19,4 +29,4 @@ function skillExtract(str) {
   return str.split(",").map((skill) => skill.trim());
 }
 
-export { skillExtract };
+export { skillExtract, skillCount };

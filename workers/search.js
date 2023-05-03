@@ -3,8 +3,8 @@ import { wait } from "../helpers/wait.js";
 import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-import XPath from "./jobPaths.js";
-import { skillExtract } from "./cleaners.js";
+import XPath from "./paths.js";
+import { skillExtract, skillCount } from "./cleaners.js";
 import fs from "fs";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -95,7 +95,7 @@ export async function search() {
   let remote = await page.locator(XPath.remote).innerText();
   // let salary = await page.locator(XPath.salary).innerText();
   let about = await page.locator(XPath.about).innerText();
-  // let applicants = await page.locator(XPath.applicants).innerText();
+  // let applicants = aawait page.locator(XPath.applicants).innerText();
   let matching = await page.locator(XPath.matching).innerText();
   let nonMatching = await page.locator(XPath.nonmatch).innerText();
 
@@ -103,8 +103,11 @@ export async function search() {
 
   await wait(2000);
 
-  console.log(skillExtract(matching));
-  console.log(skillExtract(nonMatching));
+  let aSkill = skillCount(about);
+  let skill = {
+    mat: skillExtract(matching),
+    nonMat: skillExtract(nonMatching),
+  };
 
   await wait(5000);
 }
