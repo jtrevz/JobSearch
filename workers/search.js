@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import XPath from "./paths.js";
-import { skillExtract, skillCount } from "./cleaners.js";
+import { skillExtract, skillCount, nameFilter } from "./cleaners.js";
 import fs from "fs";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -105,8 +105,8 @@ export async function search() {
 
   let aSkill = skillCount(about);
   let skill = {
-    mat: skillExtract(matching),
-    nonMat: skillExtract(nonMatching),
+    match: skillExtract(matching),
+    nonMatch: skillExtract(nonMatching),
   };
 
   await wait(5000);
