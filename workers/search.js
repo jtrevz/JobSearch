@@ -4,8 +4,10 @@ import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import XPath from "./paths.js";
-import { skillExtract, skillCount, nameFilter } from "./cleaners.js";
+import { skillExtract, skillCount } from "./cleaners.js";
+import { nameFilter, objLength } from "./score.js";
 import fs from "fs";
+import { match } from "assert";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -103,11 +105,16 @@ export async function search() {
 
   await wait(2000);
 
-  let aSkill = skillCount(about);
-  let skill = {
+  let aboutSkill = skillCount(about);
+  let matchSkill = {
     match: skillExtract(matching),
     nonMatch: skillExtract(nonMatching),
   };
 
-  await wait(5000);
+  matchSkill.length = objLength(matchSkill);
+
+  let points =
+    // if ((aboutSkill.match.length + ))
+
+    await wait(5000);
 }

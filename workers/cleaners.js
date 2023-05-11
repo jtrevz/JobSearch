@@ -1,28 +1,6 @@
 import { Skills } from "./classes.js";
 
 //name filters
-function nameFilter(name) {
-  let points = 0;
-  let position = name.toLowerCase();
-  if (
-    position.includes("onsite") ||
-    position.includes("senior") ||
-    position.includes("lead")
-  ) {
-    return points;
-  }
-  if (position.includes("junior")) {
-    points = +20;
-  }
-  if (
-    position.includes("react") ||
-    position.includes("javascript") ||
-    position.includes("node")
-  ) {
-    points += 10;
-  }
-  return points;
-}
 
 //set true or false
 
@@ -41,8 +19,8 @@ function skillCount(text) {
       nonMatch.push(skill);
     }
   });
-
-  return { match, nonMatch };
+  let length = match.length + nonMatch.length;
+  return { match, nonMatch, length };
 }
 
 function skillExtract(str) {
@@ -51,4 +29,4 @@ function skillExtract(str) {
   return str.split(",").map((skill) => skill.trim());
 }
 
-export { skillExtract, skillCount, nameFilter };
+export { skillExtract, skillCount };
