@@ -5,7 +5,7 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import XPath from "./paths.js";
 import { skillExtract, skillCount } from "./cleaners.js";
-import { nameFilter, objLength } from "./score.js";
+import { nameFilter, objLength, determineScore } from "./score.js";
 import fs from "fs";
 import { match } from "assert";
 
@@ -113,8 +113,11 @@ export async function search() {
 
   matchSkill.length = objLength(matchSkill);
 
-  let points =
-    // if ((aboutSkill.match.length + ))
+  console.log(`ABOUT \n ${aboutSkill} \n MATCH ${matchSkill}`);
 
-    await wait(5000);
+  determineScore(nameFilter(title), aboutSkill, matchSkill);
+
+  console.log(determineScore(nameFilter(title), aboutSkill, matchSkill));
+
+  await wait(5000);
 }

@@ -1,13 +1,13 @@
 function nameFilter(name) {
   let points = 0;
   let position = name.toLowerCase();
-  if (
-    position.includes("onsite") ||
-    position.includes("senior") ||
-    position.includes("lead")
-  ) {
-    return false;
-  }
+  // if (
+  //   position.includes("onsite") ||
+  //   position.includes("senior") ||
+  //   position.includes("lead")
+  // ) {
+  //   return false;
+  // }
   if (position.includes("junior")) {
     points = +20;
   }
@@ -25,4 +25,15 @@ function objLength(skills) {
   return skills.match.length + skills.nonMatch.length;
 }
 
-export { nameFilter, objLength };
+function determineScore(namePoints, aSkill, mSkill) {
+  console.log(namePoints, aSkill, mSkill);
+  let result = 0;
+  result =
+    ((aSkill.match.length / aSkill.length +
+      mSkill.match.length / mSkill.length) /
+      2) *
+    100;
+  return result.toFixed(2) + namePoints;
+}
+
+export { nameFilter, objLength, determineScore };
