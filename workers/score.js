@@ -26,7 +26,6 @@ function objLength(skills) {
 }
 
 function determineScore(namePoints, aSkill, mSkill) {
-  console.log(namePoints, aSkill, mSkill);
   let result = 0;
   result =
     ((aSkill.match.length / aSkill.length +

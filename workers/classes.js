@@ -85,4 +85,22 @@ const Skills = {
   ],
 };
 
-export { Skills };
+function Position(
+  title,
+  company,
+  city,
+  remote,
+  aboutSkills,
+  matchSkills,
+  score
+) {
+  this.title - title;
+  this.company = company;
+  this.city = city;
+  this.remote = remote;
+  this.aboutSkills = aboutSkills;
+  this.matchSkills = matchSkills;
+  this.score = score;
+}
+
+export { Skills, Position };

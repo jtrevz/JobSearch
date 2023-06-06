@@ -7,7 +7,7 @@ import XPath from "./paths.js";
 import { skillExtract, skillCount } from "./cleaners.js";
 import { nameFilter, objLength, determineScore } from "./score.js";
 import fs from "fs";
-import { match } from "assert";
+import { Position } from "./classes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -92,8 +92,6 @@ export async function search() {
 
   //Getting DATA
 
-  let position = {};
-
   // await page.locator("css=job-card-list__title").nth(0).click(); // where the index is gonna be clicking through
   let title = await page.locator(XPath.jobLink).innerText();
   let company = await page.locator(XPath.jobCompany).innerText();
@@ -117,19 +115,28 @@ export async function search() {
 
   matchSkill.length = objLength(matchSkill);
 
-  console.log(
-    `title: ${title}, \n company: ${company}, \n city: ${city}, \n remote: ${remote}, \n aboutSkill: ${
-      aboutSkill.match
-    }, \n matchSkill: ${matchSkill.match}, \n score: ${determineScore(
-      nameFilter(title),
-      aboutSkill,
-      matchSkill
-    )}, \n `
+  // console.log(
+  //   `title: ${title}, \n company: ${company}, \n city: ${city}, \n remote: ${remote}, \n aboutSkill: ${
+  //     aboutSkill.match
+  //   }, \n matchSkill: ${matchSkill.match}, \n score: ${determineScore(
+  //     nameFilter(title),
+  //     aboutSkill,
+  //     matchSkill
+  //   )}, \n `
+  // );
+  let score = determineScore(nameFilter(title), aboutSkill, matchSkill);
+
+  const position = new Position(
+    title.trim(),
+    company.trim(),
+    city.trim(),
+    remote.trim(),
+    aboutSkill.match,
+    matchSkill.match,
+    score.trim()
   );
 
-  // determineScore(nameFilter(title), aboutSkill, matchSkill);
-
-  // console.log(determineScore(nameFilter(title), aboutSkill, matchSkill));
+  console.log(position);
 
   await wait(5000);
 }
