@@ -17,6 +17,8 @@ const userLogin = process.env.USER_LOGIN || "";
 const userPass = process.env.USER_PASS || "";
 const Roles = [];
 
+const jobs = [];
+
 export async function search() {
   const browser = await chromium.launch({ headless: false });
   //   const context = await browser.newContext();
@@ -90,6 +92,8 @@ export async function search() {
 
   //Getting DATA
 
+  let position = {};
+
   // await page.locator("css=job-card-list__title").nth(0).click(); // where the index is gonna be clicking through
   let title = await page.locator(XPath.jobLink).innerText();
   let company = await page.locator(XPath.jobCompany).innerText();
@@ -113,11 +117,19 @@ export async function search() {
 
   matchSkill.length = objLength(matchSkill);
 
-  console.log(`ABOUT \n ${aboutSkill} \n MATCH ${matchSkill}`);
+  console.log(
+    `title: ${title}, \n company: ${company}, \n city: ${city}, \n remote: ${remote}, \n aboutSkill: ${
+      aboutSkill.match
+    }, \n matchSkill: ${matchSkill.match}, \n score: ${determineScore(
+      nameFilter(title),
+      aboutSkill,
+      matchSkill
+    )}, \n `
+  );
 
-  determineScore(nameFilter(title), aboutSkill, matchSkill);
+  // determineScore(nameFilter(title), aboutSkill, matchSkill);
 
-  console.log(determineScore(nameFilter(title), aboutSkill, matchSkill));
+  // console.log(determineScore(nameFilter(title), aboutSkill, matchSkill));
 
   await wait(5000);
 }
