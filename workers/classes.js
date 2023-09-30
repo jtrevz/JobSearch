@@ -88,7 +88,7 @@ const Skills = {
 function Position(
   title,
   company,
-  city,
+  location,
   remote,
   aboutSkills,
   matchSkills,
@@ -96,7 +96,7 @@ function Position(
 ) {
   this.title - title;
   this.company = company;
-  this.city = city;
+  this.location = location;
   this.remote = remote;
   this.aboutSkills = aboutSkills;
   this.matchSkills = matchSkills;

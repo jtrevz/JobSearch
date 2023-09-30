@@ -1,13 +1,7 @@
 function nameFilter(name) {
   let points = 0;
   let position = name.toLowerCase();
-  // if (
-  //   position.includes("onsite") ||
-  //   position.includes("senior") ||
-  //   position.includes("lead")
-  // ) {
-  //   return false;
-  // }
+
   if (position.includes("junior")) {
     points = +20;
   }

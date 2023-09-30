@@ -1,16 +1,18 @@
 const XPath = {
-  button: "//ul[@class='scaffold-layout__list-container']/li",
+  cardButton: ".jobs-search-results__list-item",
+  jobTitle: ".artdeco-entity-lockup__title",
   jobLink: `//div[@class='jobs-unified-top-card__content--two-pane']/a`,
   jobName: `//div[@class='jobs-unified-top-card__content--two-pane']/a/h2`,
-  jobCompany: `//div[@class='jobs-unified-top-card__content--two-pane']//div/span[1]/span[1]`,
-  location: `//div[@class='jobs-unified-top-card__content--two-pane']//div/span[1]/span[2]`,
-  remote: `//div[@class='jobs-unified-top-card__content--two-pane']//div/span[1]/span[3]`,
+  jobCompany: `.artdeco-entity-lockup__subtitle`,
+  location: ".artdeco-entity-lockup__caption",
+  locationPossible: `.job-card-container__metadata-item`,
   salary: `//li[@class='jobs-unified-top-card__job-insight']/span"/a`,
   applicants: `//li[@class='jobs-unified-top-card__job-insight']/span"/div[2]/ul/li[3]span`,
   about: "//div[@id='job-details']",
-  matching: "//*[@id='how-you-match-card']/section[2]/div/div/div[1]", // click
-  nonmatch: "//*[@id='how-you-match-card']/section[2]/div/div/div[2]",
+  matching: `.job-details-how-you-match__skills-item-subtitle`,
   url: "//ul[@class='scaffold-layout__list-container']/li/div/div//div/div/a",
+  paginationList: ".artdeco-pagination__indicator",
+  paginationButton: ":first-child",
 };
 
 export default XPath;
