@@ -1,6 +1,8 @@
 import XPath from "./paths.js";
 import { wait } from "../helpers/wait.js";
 import { skillExtract, skillCount } from "./cleaners.js";
+import { Position } from "./classes.js";
+
 import { nameFilter, objLength, determineScore } from "./score.js";
 
 export async function individualJob(page, i) {
@@ -21,15 +23,24 @@ export async function individualJob(page, i) {
     let matching = await page.locator(XPath.matching).nth(0).innerText();
     let nonMatching = await page.locator(XPath.matching).nth(1).innerText();
 
-    let href = await page.locator(XPath.jobTitle).first().getAttribute("href");
+    // let href = await page.locator(XPath.jobTitle).first().getAttribute("href");
 
     // await wait(2000);
-
     let aboutSkill = skillCount(about);
     let matchSkill = {
       match: skillExtract(matching),
       nonMatch: skillExtract(nonMatching),
     };
+
+    // const position = new Position(
+    //   title.trim(),
+    //   company.trim(),
+    //   location.trim(),
+    //   remote.trim(),
+    //   aboutSkill.match,
+    //   matchSkill.match,
+    //   score.trim()
+    // );
 
     matchSkill.length = objLength(matchSkill);
 

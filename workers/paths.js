@@ -11,7 +11,7 @@ const XPath = {
   about: "//div[@id='job-details']",
   matching: `.job-details-how-you-match__skills-item-subtitle`,
   url: "//ul[@class='scaffold-layout__list-container']/li/div/div//div/div/a",
-  paginationList: ".artdeco-pagination__indicator",
+
   paginationButton: ":first-child",
 };
 

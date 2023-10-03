@@ -106,21 +106,16 @@ export async function search() {
     for (var i = 0; i < listItemCount.length; i++) {
       //change this back tp list item length
       let job = await individualJob(page, i);
-      let score = determineScore(nameFilter(title), aboutSkill, matchSkill);
-      const position = new Position(
-        title.trim(),
-        company.trim(),
-        location.trim(),
-        remote.trim(),
-        aboutSkill.match,
-        matchSkill.match,
-        score.trim()
-      );
-      // jobs.push(position);
+      console.log("search page: " + job);
+      jobs.push(job);
     }
     pageNumber++;
     try {
-      await page.locator(XPath.paginationList).nth(pageNumber).nth[0].click();
+      await page
+        .locator(
+          `//li[@class="artdeco-pagination__indicator--number"][${pageNumber}]/button`
+        )
+        .click();
     } catch (e) {
       console.log(e);
       newPage = false;
