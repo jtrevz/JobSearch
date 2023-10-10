@@ -24,7 +24,7 @@ export async function search() {
   const browser = await chromium.launch({ headless: false });
   //   const context = await browser.newContext();
   const page = await browser.newPage();
-  await page.goto(`file://${__dirname}/../index.html`);
+  // await page.goto(`file://${__dirname}/../index.html`);
 
   // //Login
   await page.goto("https://www.linkedin.com/");
@@ -90,6 +90,7 @@ export async function search() {
     .locator("label")
     .filter({ hasText: "Remote Filter by Remote" })
     .click();
+
   // await wait(Math.floor(Math.random() * 10 + 1) * 1000);
   await 2000;
   await page.getByRole("button", { name: "Show results" }).click();
@@ -98,24 +99,33 @@ export async function search() {
   let pageNumber = 1;
   let newPage = true;
 
-  let listItemCount = (await page.$$(XPath.cardButton)).length;
   let jobs = [];
-  console.log(listItemCount);
 
-  while (newPage) {
-    for (var i = 0; i < listItemCount.length; i++) {
+  async function pageJobsData() {
+    let listItemCount = (await page.$$(XPath.cardButton)).length;
+
+    for (var i = 0; i < listItemCount; i++) {
       //change this back tp list item length
       let job = await individualJob(page, i);
-      console.log("search page: " + job);
+      console.log("search page job: " + job);
       jobs.push(job);
     }
+  }
+
+  while (newPage) {
+    // await pageJobsData();
     pageNumber++;
     try {
-      await page
-        .locator(
-          `//li[@class="artdeco-pagination__indicator--number"][${pageNumber}]/button`
-        )
-        .click();
+      // await page.locator("button:near(.promo-card)").click();
+      // await page
+      //   .locator(
+      //     `//li[@class="artdeco-pagination__indicator--number"][${pageNumber}]/button`
+      //   )
+      //   .click();
+      await wait(2000);
+      let buttonAria = `Page ${pageNumber}`;
+      let button = await page.locator(`[aria-label="${buttonAria}"]`);
+      await button.click();
     } catch (e) {
       console.log(e);
       newPage = false;

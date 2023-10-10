@@ -1,6 +1,7 @@
 const XPath = {
   cardButton: ".jobs-search-results__list-item",
-  jobTitle: ".artdeco-entity-lockup__title",
+  // jobTitle: ".artdeco-entity-lockup__title",
+  jobTitle: ".job-card-list__title",
   jobLink: `//div[@class='jobs-unified-top-card__content--two-pane']/a`,
   jobName: `//div[@class='jobs-unified-top-card__content--two-pane']/a/h2`,
   jobCompany: `.artdeco-entity-lockup__subtitle`,

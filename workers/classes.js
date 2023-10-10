@@ -89,15 +89,15 @@ function Position(
   title,
   company,
   location,
-  remote,
+  // remote,
   aboutSkills,
   matchSkills,
   score
 ) {
-  this.title - title;
+  this.title = title;
   this.company = company;
   this.location = location;
-  this.remote = remote;
+  // this.remote = remote;
   this.aboutSkills = aboutSkills;
   this.matchSkills = matchSkills;
   this.score = score;
