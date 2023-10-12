@@ -3,7 +3,7 @@ import { wait } from "../helpers/wait.js";
 import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-
+// import { csvConverter } from "./csvConverter.js";
 import { individualJob } from "./seachfxns.js";
 import fs from "fs";
 import { Position } from "./classes.js";
@@ -26,7 +26,7 @@ export async function search() {
   const page = await browser.newPage();
   // await page.goto(`file://${__dirname}/../index.html`);
 
-  // //Login
+  //Login
   await page.goto("https://www.linkedin.com/");
   await wait(5000);
   await page.getByLabel("Email or phone").click();
@@ -113,15 +113,9 @@ export async function search() {
   }
 
   while (newPage) {
-    // await pageJobsData();
+    await pageJobsData();
     pageNumber++;
     try {
-      // await page.locator("button:near(.promo-card)").click();
-      // await page
-      //   .locator(
-      //     `//li[@class="artdeco-pagination__indicator--number"][${pageNumber}]/button`
-      //   )
-      //   .click();
       await wait(2000);
       let buttonAria = `Page ${pageNumber}`;
       let button = await page.locator(`[aria-label="${buttonAria}"]`);
@@ -131,10 +125,5 @@ export async function search() {
       newPage = false;
     }
   }
-
-  // console.log(position);
-  // console.log(jobs[7]);
   await wait(5000);
-  //   }
-  // }
 }

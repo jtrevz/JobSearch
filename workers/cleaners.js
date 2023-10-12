@@ -24,8 +24,11 @@ function skillCount(text) {
 }
 
 function skillExtract(str) {
+  if (!str) {
+    return [];
+  }
   str = str.replace(/(\r\n|\n|\r)/gm, " ").replace("and", "");
-  str = str.slice(str.indexOf("profile") + 7);
+  // str = str.slice(str.indexOf("profile") + 7);
   return str.split(",").map((skill) => skill.trim());
 }
 
