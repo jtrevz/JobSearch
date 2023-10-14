@@ -7,9 +7,15 @@ import { nameFilter, objLength, determineScore } from "./score.js";
 
 export async function individualJob(page, i) {
   console.log("search funct: " + i);
+  let job = page.locator(XPath.jobTitle).nth(i);
   await page.locator(XPath.jobTitle).nth(i).click();
+
   // where the index is gonna be clicking through
-  // if (i % 3 == 0) await page.mouse.wheel(delta_x=0, delta_y=300);
+
+  if (i % 2 === 0) {
+    await job.scrollIntoViewIfNeeded();
+    await wait(3);
+  }
 
   let title = await page.locator(XPath.jobTitle).nth(i).innerText();
   let company = await page.locator(XPath.jobCompany).nth(i).innerText();
@@ -19,7 +25,7 @@ export async function individualJob(page, i) {
   } catch (e) {
     location = await page.locator(XPath.locationPossible).nth(i).innerText();
   }
-  await wait(2000);
+  await wait(4);
   let about = await page.locator(XPath.about).innerText();
   let matching = await page.locator(XPath.matching).nth(0).innerText();
   let nonMatching;
@@ -32,7 +38,7 @@ export async function individualJob(page, i) {
 
   // let href = await page.locator(XPath.jobTitle).first().getAttribute("href");
 
-  await wait(2000);
+  await wait(3);
   let aboutSkill = skillCount(about);
   let matchSkill = {
     match: skillExtract(matching),

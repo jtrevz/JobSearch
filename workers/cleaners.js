@@ -3,6 +3,9 @@ import { Skills } from "./classes.js";
 //name filters
 
 //set true or false
+function isRemote(location) {
+  return location.match(/\(([^)]+)\)/)[1].toLowerCase() === "remote";
+}
 
 function skillCount(text) {
   const tLow = text.toLowerCase();

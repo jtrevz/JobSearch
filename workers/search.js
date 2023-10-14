@@ -28,13 +28,13 @@ export async function search() {
 
   //Login
   await page.goto("https://www.linkedin.com/");
-  await wait(5000);
+  await wait(5);
   await page.getByLabel("Email or phone").click();
   await page.getByLabel("Email or phone").fill(process.env.EMAIL);
   await page.getByLabel("Password", { exact: true }).click();
   await page.getByLabel("Password", { exact: true }).fill(process.env.PW);
   await page.getByRole("button", { name: "Sign in", exact: true }).click();
-  await wait(Math.floor(Math.random() * 10 + 1) * 1000);
+  await wait(10);
 
   // Job Search
   await page.getByRole("link", { name: "Jobs", exact: true }).click();
@@ -44,13 +44,13 @@ export async function search() {
   await page
     .getByRole("combobox", { name: "Search by title, skill, or company" })
     .fill("full stack developer");
-  await wait(2000);
+  await wait(5);
   await page
     .getByRole("combobox", { name: "Search by title, skill, or company" })
     .press("Enter");
 
   // Search filters
-  await wait(5000);
+  await wait(5);
   await page
     .getByRole("button", {
       name: "Show all filters. Clicking this button displays all available filter options.",
@@ -60,39 +60,38 @@ export async function search() {
     .locator("label")
     .filter({ hasText: "Most recent Filter by Most recent" })
     .click();
-  await wait(1000);
+  await wait(1);
   await page
     .getByRole("group", { name: "Experience level filter" })
     .getByText("Internship", { exact: true })
     .click();
-  await wait(1000);
+  await wait(2);
   await page
     .getByRole("dialog", { name: "All filters" })
     .locator("label")
     .filter({ hasText: "Associate Filter by Associate" })
     .click();
-  await wait(1000);
+  await wait(3);
   await page
     .getByRole("dialog", { name: "All filters" })
     .locator("label")
     .filter({ hasText: "Full-time Filter by Full-time" })
     .click();
-  await wait(1000);
-  await wait(5000);
+  await wait(2);
+  await wait(5);
   await page
     .getByRole("group", { name: "Job type filter" })
     .locator("label")
     .filter({ hasText: "Internship Filter by Internship" })
     .click();
-  await wait(1000);
+  await wait(3);
   await page
     .getByRole("dialog", { name: "All filters" })
     .locator("label")
     .filter({ hasText: "Remote Filter by Remote" })
     .click();
 
-  // await wait(Math.floor(Math.random() * 10 + 1) * 1000);
-  await 2000;
+  await wait(4);
   await page.getByRole("button", { name: "Show results" }).click();
 
   //Getting DATA
@@ -116,7 +115,7 @@ export async function search() {
     await pageJobsData();
     pageNumber++;
     try {
-      await wait(2000);
+      await wait(3);
       let buttonAria = `Page ${pageNumber}`;
       let button = await page.locator(`[aria-label="${buttonAria}"]`);
       await button.click();
@@ -125,5 +124,5 @@ export async function search() {
       newPage = false;
     }
   }
-  await wait(5000);
+  await wait(5);
 }
