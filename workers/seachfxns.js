@@ -12,10 +12,7 @@ export async function individualJob(page, i) {
 
   // where the index is gonna be clicking through
 
-  if (i % 2 === 0) {
-    await job.scrollIntoViewIfNeeded();
-    await wait(3);
-  }
+  await job.scrollIntoViewIfNeeded();
 
   let title = await page.locator(XPath.jobTitle).nth(i).innerText();
   let company = await page.locator(XPath.jobCompany).nth(i).innerText();

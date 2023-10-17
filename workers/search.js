@@ -92,7 +92,10 @@ export async function search() {
     .click();
 
   await wait(4);
-  await page.getByRole("button", { name: "Show results" }).click();
+  let showResultsBtn = page.locator(
+    ".search-reusables__secondary-filters-show-results-button"
+  );
+  await showResultsBtn.click();
 
   //Getting DATA
   let pageNumber = 1;
