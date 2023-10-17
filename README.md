@@ -1,6 +1,6 @@
 # Job Search
 
-**Currently working on new locators but will be working soon**
+**------Currently working on new locators but will be working soon!------**
 
 Job search application that automates job search, scrapes LinkedIn for job postings based on preferences and ranks job criteria and outputs CSV file with job results.
 
