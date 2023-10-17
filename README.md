@@ -1,5 +1,7 @@
 # Job Search
 
+**------Currently working on new locators but will be working soon!------**
+
 Job search application that automates job search, scrapes LinkedIn for job postings based on preferences and ranks job criteria and outputs CSV file with job results.
 
 This is meant to be a tool to help prioritize job listings. Please note that the following code is not affiliated with, authorized, maintained, sponsored or endorsed by LinkedIn or any of its affiliates or subsidiaries. Use at your own risk.
