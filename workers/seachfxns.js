@@ -1,6 +1,6 @@
 import XPath from "./paths.js";
 import { wait } from "../helpers/wait.js";
-import { skillExtract, skillCount } from "./cleaners.js";
+import { skillExtract, skillCount, isRemote } from "./cleaners.js";
 import { Position } from "./classes.js";
 
 import { nameFilter, objLength, determineScore } from "./score.js";
@@ -8,11 +8,11 @@ import { nameFilter, objLength, determineScore } from "./score.js";
 export async function individualJob(page, i) {
   console.log("search funct: " + i);
   let job = page.locator(XPath.jobTitle).nth(i);
-  await page.locator(XPath.jobTitle).nth(i).click();
 
   // where the index is gonna be clicking through
 
   await job.scrollIntoViewIfNeeded();
+  await job.click();
 
   let title = await page.locator(XPath.jobTitle).nth(i).innerText();
   let company = await page.locator(XPath.jobCompany).nth(i).innerText();
@@ -36,6 +36,7 @@ export async function individualJob(page, i) {
   // let href = await page.locator(XPath.jobTitle).first().getAttribute("href");
 
   await wait(3);
+  let remote = isRemote(location);
   let aboutSkill = skillCount(about);
   let matchSkill = {
     match: skillExtract(matching),
@@ -43,20 +44,27 @@ export async function individualJob(page, i) {
   };
 
   matchSkill.length = objLength(matchSkill);
-  let score = determineScore(nameFilter(title), aboutSkill, matchSkill);
-
-  console.log(
-    `title: ${title}, \n company: ${company}, \n location: ${location}, \n aboutSkill: ${aboutSkill.match}, \n matchSkill: ${matchSkill.match}, \n score: ${score}, \n `
+  let score = determineScore(
+    nameFilter(title),
+    aboutSkill,
+    matchSkill,
+    remote,
+    location
   );
+
+  // console.log(
+  //   `title: ${title}, \n company: ${company}, \n location: ${location}, \n aboutSkill: ${aboutSkill.match}, \n matchSkill: ${matchSkill.match}, \n score: ${score}, \n `
+  // );
+
   console.log(matchSkill.match);
   const position = new Position(
     title.trim(),
     company.trim(),
     location.trim(),
-    // remote.trim(),
+    remote,
     aboutSkill.match,
     matchSkill.match,
-    score.trim()
+    score
   );
-  return position;
+  return { ...position };
 }

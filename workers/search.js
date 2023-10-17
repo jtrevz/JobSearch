@@ -3,7 +3,7 @@ import { wait } from "../helpers/wait.js";
 import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-// import { csvConverter } from "./csvConverter.js";
+import CSVconverter from "./csvConverter.js";
 import { individualJob } from "./seachfxns.js";
 import fs from "fs";
 import { Position } from "./classes.js";
@@ -34,7 +34,7 @@ export async function search() {
   await page.getByLabel("Password", { exact: true }).click();
   await page.getByLabel("Password", { exact: true }).fill(process.env.PW);
   await page.getByRole("button", { name: "Sign in", exact: true }).click();
-  await wait(10);
+  await wait(15);
 
   // Job Search
   await page.getByRole("link", { name: "Jobs", exact: true }).click();
@@ -106,13 +106,39 @@ export async function search() {
   async function pageJobsData() {
     let listItemCount = (await page.$$(XPath.cardButton)).length;
 
-    for (var i = 0; i < listItemCount; i++) {
+    for (var i = 0; i < 7; i++) {
       //change this back tp list item length
-      let job = await individualJob(page, i);
-      console.log("search page job: " + job);
-      jobs.push(job);
+      try {
+        let job = await individualJob(page, i);
+        console.log("search page job: " + job);
+        if (job) jobs.push(job);
+      } catch (e) {
+        console.error(e);
+        return;
+      }
     }
   }
+
+  function generateCSV() {
+    var dateInitial = new Date();
+    var date = `${
+      dateInitial.getMonth() + 1
+    }.${dateInitial.getDate()}.${dateInitial.getFullYear()}`;
+
+    let data = CSVconverter(jobs);
+
+    CSVconverter(jobs);
+
+    fs.writeFile(__dirname + `/fsd-search(${date}).csv`, data, (e) => {
+      if (e) {
+        console.error(e);
+      } else {
+        console.log(`CSV file fsd-search(${date}).csv successfully written`);
+      }
+    });
+  }
+
+  await pageJobsData();
 
   while (newPage) {
     await pageJobsData();
@@ -128,4 +154,6 @@ export async function search() {
     }
   }
   await wait(5);
+
+  await generateCSV();
 }

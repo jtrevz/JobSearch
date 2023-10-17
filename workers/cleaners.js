@@ -35,4 +35,4 @@ function skillExtract(str) {
   return str.split(",").map((skill) => skill.trim());
 }
 
-export { skillExtract, skillCount };
+export { skillExtract, skillCount, isRemote };

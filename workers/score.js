@@ -19,14 +19,19 @@ function objLength(skills) {
   return skills.match.length + skills.nonMatch.length;
 }
 
-function determineScore(namePoints, aSkill, mSkill) {
+function determineScore(namePoints, aSkill, mSkill, remote, location) {
   let result = 0;
   result =
     ((aSkill.match.length / aSkill.length +
       mSkill.match.length / mSkill.length) /
       2) *
     100;
-  return result.toFixed(2) + namePoints;
+  if (remote) {
+    result += 30;
+  } else if (location.toLowerCase().includes("houston")) {
+    result += 15;
+  }
+  return parseFloat(result.toFixed(2)) + namePoints;
 }
 
 export { nameFilter, objLength, determineScore };
