@@ -56,14 +56,25 @@ export async function search() {
       name: "Show all filters. Clicking this button displays all available filter options.",
     })
     .click();
+  await wait(2);
   await page
     .locator("label")
     .filter({ hasText: "Most recent Filter by Most recent" })
     .click();
-  await wait(1);
+  await page
+    .getByRole("dialog", { name: "All filters" })
+    .locator("label")
+    .filter({ hasText: "Past 24 hours" })
+    .click();
+  //await wait(1);
   await page
     .getByRole("group", { name: "Experience level filter" })
     .getByText("Internship", { exact: true })
+    .click();
+  await wait(2);
+  await page
+    .getByRole("group", { name: "Experience level filter" })
+    .getByText("Entry level", { exact: true })
     .click();
   await wait(2);
   await page
@@ -102,6 +113,8 @@ export async function search() {
   let newPage = true;
 
   let jobs = [];
+
+  //if return empty job fxn
 
   async function pageJobsData() {
     let listItemCount = (await page.$$(XPath.cardButton)).length;

@@ -5,16 +5,17 @@ import { Position } from "./classes.js";
 
 import { nameFilter, objLength, determineScore } from "./score.js";
 
+//check if job includes sr senior imme then return
+
 export async function individualJob(page, i) {
-  console.log("search funct: " + i);
   let job = page.locator(XPath.jobTitle).nth(i);
 
-  // where the index is gonna be clicking through
-
   await job.scrollIntoViewIfNeeded();
+  //TD:better scroll functionality needed
   await job.click();
 
   let title = await page.locator(XPath.jobTitle).nth(i).innerText();
+  console.log(title);
   let company = await page.locator(XPath.jobCompany).nth(i).innerText();
   let location;
   try {
@@ -28,7 +29,6 @@ export async function individualJob(page, i) {
   let nonMatching;
   try {
     nonMatching = await page.locator(XPath.matching).nth(1).innerHTML();
-    console.log(nonMatching);
   } catch (e) {
     console.log(`${i}: ${title} nonMatching: ${nonMatching}`);
   }
@@ -51,10 +51,6 @@ export async function individualJob(page, i) {
     remote,
     location
   );
-
-  // console.log(
-  //   `title: ${title}, \n company: ${company}, \n location: ${location}, \n aboutSkill: ${aboutSkill.match}, \n matchSkill: ${matchSkill.match}, \n score: ${score}, \n `
-  // );
 
   console.log(matchSkill.match);
   const position = new Position(
