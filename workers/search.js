@@ -137,8 +137,6 @@ export async function search() {
     });
   }
 
-  await pageJobsData();
-
   while (newPage) {
     await pageJobsData();
     pageNumber++;
@@ -146,10 +144,14 @@ export async function search() {
       await wait(3);
       let buttonAria = `Page ${pageNumber}`;
       let button = await page.locator(`[aria-label="${buttonAria}"]`);
-      await button.click();
+      await wait(2);
+      if (button.count() > 0) {
+        await button.click();
+      } else {
+        newPage = false;
+      }
     } catch (e) {
       console.log(e);
-      newPage = false;
     }
   }
   await wait(5);
