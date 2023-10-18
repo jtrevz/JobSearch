@@ -106,8 +106,7 @@ export async function search() {
   async function pageJobsData() {
     let listItemCount = (await page.$$(XPath.cardButton)).length;
 
-    for (var i = 0; i < 7; i++) {
-      //change this back tp list item length
+    for (var i = 0; i < listItemCount; i++) {
       try {
         let job = await individualJob(page, i);
         console.log("search page job: " + job);
