@@ -15,7 +15,7 @@ export async function individualJob(page, i) {
   await job.click();
 
   let title = await page.locator(XPath.jobTitle).nth(i).innerText();
-  console.log(title);
+
   let company = await page.locator(XPath.jobCompany).nth(i).innerText();
   let location;
   try {
@@ -25,12 +25,22 @@ export async function individualJob(page, i) {
   }
   await wait(4);
   let about = await page.locator(XPath.about).innerText();
-  let matching = await page.locator(XPath.matching).nth(0).innerText();
+  let matching;
+  let matchSkill = {};
+  try {
+    matching = await page.locator(XPath.matching).nth(0).innerText();
+    matchSkill.match = skillExtract(matching);
+  } catch (e) {
+    console.log(e);
+    matchSkill.nonMatch = [];
+  }
   let nonMatching;
   try {
     nonMatching = await page.locator(XPath.matching).nth(1).innerHTML();
+    matchSkill.nonMatch = skillExtract(nonMatching);
   } catch (e) {
     console.log(`${i}: ${title} nonMatching: ${nonMatching}`);
+    matchSkill.nonMatch = [];
   }
 
   // let href = await page.locator(XPath.jobTitle).first().getAttribute("href");
@@ -38,10 +48,6 @@ export async function individualJob(page, i) {
   await wait(3);
   let remote = isRemote(location);
   let aboutSkill = skillCount(about);
-  let matchSkill = {
-    match: skillExtract(matching),
-    nonMatch: skillExtract(nonMatching),
-  };
 
   matchSkill.length = objLength(matchSkill);
   let score = determineScore(
